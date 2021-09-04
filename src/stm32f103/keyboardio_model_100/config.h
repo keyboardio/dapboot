@@ -82,6 +82,9 @@
 #define USB_VID 0x1209
 #define USB_PID 0x2306
 
-#define LANDING_PAGE_URL dfu.keyboard.io?vid=${USB_VID};pid=${USB_PID};version=${GIT_BUILD_SHA}
+#define INNER_STRINGIFY(str) #str
+#define STRINGIFY(str) INNER_STRINGIFY(str)
+
+#define LANDING_PAGE_URL "dfu.keyboard.io?vid=" STRINGIFY(USB_VID) ";pid=" STRINGIFY(USB_PID)  ";version=" STRINGIFY(GIT_BUILD_SHA)
 
 #endif
