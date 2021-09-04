@@ -19,8 +19,6 @@
 BINARY = dapboot
 OPENCM3_DIR = ../libopencm3
 
-GIT_BUILD_SHA ?= $(git rev-parse HEAD |cut -c 1-6)
-
 TARGET ?= STM32F103
 include targets.mk
 

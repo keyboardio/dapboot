@@ -39,7 +39,7 @@
 #define HAVE_LED 1
 #endif
 #ifndef LED_OPEN_DRAIN
-#define LED_OPEN_DRAIN 0
+#define LED_OPEN_DRAIN 1
 #endif
 #ifndef LED_GPIO_PORT
 #define LED_GPIO_PORT GPIOB
