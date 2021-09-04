@@ -87,4 +87,7 @@
 
 #define LANDING_PAGE_URL "dfu.keyboard.io?vid=" STRINGIFY(USB_VID) ";pid=" STRINGIFY(USB_PID)  ";version=" STRINGIFY(GIT_BUILD_SHA)
 
+#define USB_VENDOR_STRING "Keyboardio"
+#define USB_PRODUCT_STRING "Model 100 (Bootloader)"
+
 #endif
