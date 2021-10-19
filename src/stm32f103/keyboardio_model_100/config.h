@@ -19,6 +19,7 @@
 #ifndef CONFIG_H_INCLUDED
 #define CONFIG_H_INCLUDED
 
+//#define USE_HSI 1
 #ifndef APP_BASE_ADDRESS
 #define APP_BASE_ADDRESS (0x08000000 + BOOTLOADER_OFFSET)
 #endif
@@ -45,11 +46,11 @@
 #define LED_GPIO_PORT GPIOB
 #endif
 #ifndef LED_GPIO_PIN
-#define LED_GPIO_PIN GPIO2
+#define LED_GPIO_PIN GPIO0
 #endif
 
 #ifndef HAVE_BUTTON
-#define HAVE_BUTTON 1
+#define HAVE_BUTTON 0
 #endif
 #ifndef BUTTON_ACTIVE_HIGH
 #define BUTTON_ACTIVE_HIGH 1
@@ -68,7 +69,7 @@
 #endif
 
 #ifndef HAVE_USB_PULLUP_CONTROL
-#define HAVE_USB_PULLUP_CONTROL 0
+#define HAVE_USB_PULLUP_CONTROL 1
 #endif
 
 #ifndef USES_GPIOA
@@ -78,6 +79,21 @@
 #define USES_GPIOB 1
 #endif
 
+
+#define USES_GPIOC 1
+
+#ifndef USB_PULLUP_GPIO_PORT
+#define USB_PULLUP_GPIO_PORT GPIOA
+#endif
+#ifndef USB_PULLUP_GPIO_PIN
+#define USB_PULLUP_GPIO_PIN  GPIO8
+#endif
+#ifndef USB_PULLUP_ACTIVE_HIGH
+#define USB_PULLUP_ACTIVE_HIGH 1
+#endif
+#ifndef USB_PULLUP_OPEN_DRAIN
+#define USB_PULLUP_OPEN_DRAIN 0
+#endif
 
 #define USB_VID 0x1209
 #define USB_PID 0x2306
