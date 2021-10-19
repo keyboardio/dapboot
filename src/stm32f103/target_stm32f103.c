@@ -71,7 +71,7 @@ void target_clock_setup(void) {
    rcc_clock_setup_in_hsi_out_48mhz();
 #else
     /* Set system clock to 72 MHz from an external crystal */
-   rcc_clock_setup_in_hse_16mhz_out_72mhz();
+   rcc_clock_setup_in_hse_8mhz_out_72mhz();
 #endif
 }
 
