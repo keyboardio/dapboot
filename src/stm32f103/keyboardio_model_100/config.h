@@ -95,8 +95,8 @@
 #define USB_PULLUP_OPEN_DRAIN 0
 #endif
 
-#define USB_VID 0x1209
-#define USB_PID 0x2306
+#define USB_VID 0x3496
+#define USB_PID 0x0005
 
 #define INNER_STRINGIFY(str) #str
 #define STRINGIFY(str) INNER_STRINGIFY(str)
