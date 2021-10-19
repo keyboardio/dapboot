@@ -68,10 +68,10 @@ void target_clock_setup(void) {
     /* Set the system clock to 48MHz from the internal RC oscillator.
        The clock tolerance doesn't meet the official USB spec, but
        it's better than nothing. */
-   //rcc_clock_setup_in_hsi_out_48mhz();
+   rcc_clock_setup_in_hsi_out_48mhz();
 #else
     /* Set system clock to 72 MHz from an external crystal */
-   //rcc_clock_setup_in_hse_16mhz_out_72mhz();
+   rcc_clock_setup_in_hse_16mhz_out_72mhz();
 #endif
 }
 
