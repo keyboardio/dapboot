@@ -1,3 +1,4 @@
 [submodule "libopencm3"]
 	path = libopencm3
 	url = https://github.com/keyboardio/libopencm3
+	branch = keyboardio-dapboot
