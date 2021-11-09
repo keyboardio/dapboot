@@ -109,6 +109,12 @@ void target_gpio_setup(void) {
         const uint8_t conf = (BUTTON_USES_PULL ? GPIO_CNF_INPUT_PULL_UPDOWN
                                                : GPIO_CNF_INPUT_FLOAT);
         gpio_set_mode(BUTTON_GPIO_PORT, mode, conf, BUTTON_GPIO_PIN);
+
+#ifdef BUTTON_OUTPUT_GPIO_PORT
+        gpio_set_mode(BUTTON_OUTPUT_GPIO_PORT,GPIO_MODE_OUTPUT_10_MHZ, GPIO_CNF_OUTPUT_PUSHPULL, BUTTON_OUTPUT_GPIO_PIN);
+	gpio_set(BUTTON_OUTPUT_GPIO_PORT,BUTTON_OUTPUT_GPIO_PIN);
+#endif
+
         if (BUTTON_USES_PULL) {
             if (BUTTON_ACTIVE_HIGH) {
                 gpio_clear(BUTTON_GPIO_PORT, BUTTON_GPIO_PIN);
