@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include <libopencm3/cm3/vector.h>
+#include <libopencm3/stm32/rcc.h>
 
 #include "dapboot.h"
 #include "target.h"
@@ -43,8 +44,16 @@ static void jump_to_application(void) {
     if (APP_RELOCATE_VECTORS)
         target_relocate_vector_table();
 
-    /* Do any necessary early setup for the application */
-    target_pre_main();
+target_pre_main();
+    /* TODO: say what this does */
+    RCC_CR   |= 0x00000001;
+    RCC_CFGR &= 0xF8FF0000;
+    RCC_CR   &= 0xFEF6FFFF;
+    RCC_CR   &= 0xFFFBFFFF;
+    RCC_CFGR &= 0xFF80FFFF;
+    
+    /* disable all RCC interrupts */
+    RCC_CIR   = 0x00000000;
 
     /* Initialize the application's stack pointer */
     __set_MSP((uint32_t)(APP_INITIAL_STACK));
