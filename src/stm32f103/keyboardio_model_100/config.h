@@ -23,7 +23,7 @@
 // Without this, dfu-util exits with an error on flashing
 #define DFU_WILL_DETACH 0
 
-//#define USE_HSI 1
+#define USE_HSI 1
 #ifndef APP_BASE_ADDRESS
 #define APP_BASE_ADDRESS (0x08000000 + BOOTLOADER_OFFSET)
 #endif
