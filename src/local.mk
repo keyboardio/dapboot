@@ -6,7 +6,7 @@ GIT_BUILD_SHA := $(shell git rev-parse HEAD |cut -c 1-6)
 TARGET = KEYBOARDIO_MODEL_100
 TARGET_COMMON_DIR = ./stm32f103
 TARGET_SPEC_DIR = ./stm32f103/keyboardio_model_100
-LDSCRIPT = ./stm32f103/stm32f103x8.ld
+LDSCRIPT = ./gd32f303/gd32f303cgt6.ld
 ARCH = STM32F1
 DEFS += -DGIT_BUILD_SHA=${GIT_BUILD_SHA}
 #endif
