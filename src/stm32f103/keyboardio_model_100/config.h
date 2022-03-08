@@ -53,6 +53,9 @@
 #define LED_GPIO_PIN GPIO0
 #endif
 
+
+#define LED_PROG_KEY 3 // The LED in the top left corner
+
 #ifndef HAVE_BUTTON
 #define HAVE_BUTTON 1
 #endif
