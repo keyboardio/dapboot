@@ -14,6 +14,7 @@
 
 
 void i2c_setup(void);
-void i2c_led_on(uint8_t led, uint8_t red);
+void i2c_led_on(uint8_t led, uint8_t red, uint8_t green, uint8_t blue) ;
+void i2c_led_off(uint8_t led);
 void i2c_led_all_off(void);
-void i2c_led_update_status(void);
+void i2c_led_update_status(bool);

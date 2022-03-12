@@ -13,10 +13,12 @@
 #define CMD_BOOT 0x4F42UL
 #endif
 
+uint8_t current_status_led = LED_PROG_KEY;
+
 
 void target_pre_main(void) {
     /* Turn off the LEDS */
-    i2c_led_all_off();
+    // i2c_led_all_off();
 
     // Before jumping into user code, try to reset our clock config back to a standard boot config
     RCC_CR   |= 0x00000001;
