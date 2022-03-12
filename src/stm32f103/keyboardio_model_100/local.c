@@ -45,17 +45,16 @@ bool target_get_force_bootloader(void) {
     // }
 
     /* Clear the RTC backup register */
-    //backup_write(REG_BOOT, 0);
+    // backup_write(REG_BOOT, 0);
 
     /* Wait some time in case the button has some debounce capacitor */
     for (int i = 0; i < BUTTON_SAMPLE_DELAY_CYCLES; i++) {
         __asm__("nop");
     }
     /* Check if the user button is held down */
-        if (gpio_get(BUTTON_GPIO_PORT, BUTTON_GPIO_PIN)) {
-            force = true;
-        }
-
+    if (gpio_get(BUTTON_GPIO_PORT, BUTTON_GPIO_PIN)) {
+        force = true;
+    }
 
     return force;
 }
@@ -70,22 +69,26 @@ void target_post_setup (void) {
 /* This routine comes from libopencm3. But the version we're using doesn't have timeouts. So blocks forever if it can't talk to the keyscanners */
 
 #define I2C_TIMEOUT 1024
-static void i2c_write(uint32_t i2c, int addr, uint8_t *data, size_t n)
-{  
+static void i2c_write(uint32_t i2c, int addr, uint8_t* data, size_t n) {
     uint16_t timeout = I2C_TIMEOUT;
-    while ((I2C_SR2(i2c) & I2C_SR2_BUSY) && timeout--) { 
+    while ((I2C_SR2(i2c) & I2C_SR2_BUSY) && timeout--) {
     }
 
     i2c_send_start(i2c);
 
-    /* Wait for the end of the start condition, master mode selected, and BUSY bit set */
+    /* Wait for the end of the start condition, master mode selected, and BUSY
+     * bit set */
     timeout = I2C_TIMEOUT;
-    while ( !( (I2C_SR1(i2c) & I2C_SR1_SB) && (I2C_SR2(i2c) & I2C_SR2_MSL) && (I2C_SR2(i2c) & I2C_SR2_BUSY) ) && timeout--);
+    while (!((I2C_SR1(i2c) & I2C_SR1_SB) && (I2C_SR2(i2c) & I2C_SR2_MSL) &&
+             (I2C_SR2(i2c) & I2C_SR2_BUSY)) &&
+           timeout--)
+        ;
     i2c_send_7bit_address(i2c, addr, I2C_WRITE);
 
     /* Waiting for address is transferred. */
     timeout = I2C_TIMEOUT;
-    while (!(I2C_SR1(i2c) & I2C_SR1_ADDR) && timeout--);
+    while (!(I2C_SR1(i2c) & I2C_SR1_ADDR) && timeout--)
+        ;
 
     /* Clearing ADDR condition sequence. */
     (void)I2C_SR2(i2c);
@@ -93,30 +96,27 @@ static void i2c_write(uint32_t i2c, int addr, uint8_t *data, size_t n)
     for (size_t i = 0; i < n; i++) {
         i2c_send_data(i2c, data[i]);
         timeout = I2C_TIMEOUT;
-        while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)) && timeout--);
+        while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)) && timeout--)
+            ;
     }
-    // In libopencm3 i2c_send_stop is in i2c_transfer7. We lifted it here 
-    // so we don't need all of i2c_transfer7, since we never *read* from i2c in the
-    // bootloader
+    // In libopencm3 i2c_send_stop is in i2c_transfer7. We lifted it here
+    // so we don't need all of i2c_transfer7, since we never *read* from i2c in
+    // the bootloader
     i2c_send_stop(i2c);
-
 }
-
 
 void i2c_setup(void) {
     // Enable I2C1 clock
     rcc_periph_clock_enable(RCC_I2C1);
-     //rcc_set_i2c_clock_hsi(I2C1);
+    // rcc_set_i2c_clock_hsi(I2C1);
     i2c_reset(I2C1);
     i2c_peripheral_disable(I2C1);
     uint8_t clock_megahz = 48;
-    i2c_set_speed(I2C1,i2c_speed_sm_100k,clock_megahz );
+    i2c_set_speed(I2C1, i2c_speed_sm_100k, clock_megahz);
     i2c_peripheral_enable(I2C1);
     /* GPIO for I2C1 */
     gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_OPENDRAIN, GPIO6 | GPIO7);
-
 }
-
 
 #define I2C_LEFT_ADDRESS 0x58
 #define TWI_CMD_LED_SET_ALL_TO 0x03
