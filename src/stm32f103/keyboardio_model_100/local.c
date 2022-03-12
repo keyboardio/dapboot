@@ -37,17 +37,7 @@ void target_pre_main(void) {
 bool target_get_force_bootloader(void) {
     bool force = false;
 
-    /* We don't check the RTC backup register. 
-     * If the reboot happened, we only care if 
-     * they're holding down the 'program' button 
-     */
-    // uint16_t cmd = backup_read(REG_BOOT);
-    // if (cmd == CMD_BOOT) {
-    //    force = true;
-    // }
 
-    /* Clear the RTC backup register */
-    // backup_write(REG_BOOT, 0);
 
     /* Wait some time in case the button has some debounce capacitor */
     for (int i = 0; i < BUTTON_SAMPLE_DELAY_CYCLES; i++) {
