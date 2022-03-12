@@ -61,14 +61,29 @@ bool target_get_force_bootloader(void) {
     return force;
 }
 
-void target_post_setup (void) {
+void target_post_setup(void) {
+
+    // Setup our i2c controller
     i2c_setup();
-    i2c_led_on(LED_PROG_KEY, 0xFF);
-}       
 
+    // Enable the 5V power network
+    gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, GPIO_CNF_OUTPUT_OPENDRAIN, GPIO9);
+    gpio_clear(GPIOB, GPIO9);
 
+    // Delay for a moment to let the ATTiny88 boot up.
+    // With the model 100's initial factory firmware, this works consistently at
+    // 76ms but does not work at 75ms. That jibes with the 65ms delay on boot we
+    // have the ATTiny88s fused for.
+    //
+    // We punch it up to 250ms of delay just to be safe.
+    delay_ms(250, 48000000);
 
-/* This routine comes from libopencm3. But the version we're using doesn't have timeouts. So blocks forever if it can't talk to the keyscanners */
+    // Set the PROG led to 'red'
+    i2c_led_update_status(false);
+}
+
+/* This routine comes from libopencm3. But the version we're using doesn't have
+ * timeouts. So blocks forever if it can't talk to the keyscanners */
 
 #define I2C_TIMEOUT 1024
 static void i2c_write(uint32_t i2c, int addr, uint8_t* data, size_t n) {
@@ -124,24 +139,28 @@ void i2c_setup(void) {
 #define TWI_CMD_LED_SET_ALL_TO 0x03
 #define TWI_CMD_LED_SET_ONE_TO 0x04
 
-void i2c_led_on(uint8_t led, uint8_t red) {
-    uint8_t cmd[5] = {TWI_CMD_LED_SET_ONE_TO, led, 0x00, 0x00, red};
-    i2c_write(I2C1, I2C_LEFT_ADDRESS, cmd, 5);
-    return;
+void i2c_led_on(uint8_t led, uint8_t red, uint8_t green, uint8_t blue) {
+    uint8_t cmd[5] = {TWI_CMD_LED_SET_ONE_TO, led, blue, green, red};
+    i2c_write(I2C1, I2C_LEFT_ADDRESS, cmd, sizeof(cmd));
 }
 
 void i2c_led_all_off() {
     uint8_t cmd[4] = {TWI_CMD_LED_SET_ALL_TO, 0x00, 0x00, 0x00};
-    i2c_write(I2C1, I2C_LEFT_ADDRESS, cmd, 4);
+    i2c_write(I2C1, I2C_LEFT_ADDRESS, cmd, sizeof(cmd));
     return;
-    }
-/*
-uint8_t status_which_led=0;
-void i2c_led_update_status() {
-    i2c_led_on(status_which_led++, 0xFF);
-    i2c_led_all_off();
-    if (status_which_led > 7) {
-        status_which_led = 0;
-    }
+}
 
-}*/
+void i2c_led_update_status(bool status) {
+    // Turn off the last LED
+    i2c_led_all_off();
+    delay_ms(3, 48000000);
+
+    if (status) {
+        i2c_led_on(current_status_led, 0x00, 0xff, 0x00);
+    } else {
+        i2c_led_on(current_status_led, 0xFF, 0x00, 0x00);
+    }
+    if (current_status_led++ > 3) {
+        current_status_led = 0;
+    }
+}
