@@ -103,29 +103,20 @@ static void i2c_write(uint32_t i2c, int addr, uint8_t *data, size_t n)
 }
 
 
-void i2c_setup() {
+void i2c_setup(void) {
     // Enable I2C1 clock
-    rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_I2C1);
-    gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, GPIO_CNF_OUTPUT_OPENDRAIN, GPIO9);
-    gpio_set(GPIOB, GPIO9);
      //rcc_set_i2c_clock_hsi(I2C1);
     i2c_reset(I2C1);
     i2c_peripheral_disable(I2C1);
-    /* HSI is at 8Mhz */
-    uint8_t clock_megahz = 32;
-    i2c_set_clock_frequency(I2C1, clock_megahz);
-    i2c_set_standard_mode(I2C1);
-    /* x Mhz / (100kHz * 2) */
-    i2c_set_ccr(I2C1, clock_megahz * 5);
-    /* Sm mode, (100kHz) freqMhz + 1 */
-    i2c_set_trise(I2C1, clock_megahz + 1);
-
+    uint8_t clock_megahz = 48;
+    i2c_set_speed(I2C1,i2c_speed_sm_100k,clock_megahz );
     i2c_peripheral_enable(I2C1);
     /* GPIO for I2C1 */
     gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_OPENDRAIN, GPIO6 | GPIO7);
 
 }
+
 
 #define I2C_LEFT_ADDRESS 0x58
 #define TWI_CMD_LED_SET_ALL_TO 0x03
