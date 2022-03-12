@@ -45,7 +45,7 @@ bool target_get_force_bootloader(void) {
     // }
 
     /* Clear the RTC backup register */
-    backup_write(REG_BOOT, 0);
+    //backup_write(REG_BOOT, 0);
 
 #if HAVE_BUTTON
     /* Wait some time in case the button has some debounce capacitor */
