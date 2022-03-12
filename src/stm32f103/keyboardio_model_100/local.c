@@ -1,9 +1,11 @@
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/rcc.h>
-#include "target.h"
+
 #include "config.h"
-#include "backup.h"
+#include "delay.h"
 #include "i2c.h"
+#include "stm32f103/backup.h"
+#include "target.h"
 
 #ifndef REG_BOOT
 #define REG_BOOT BKP1
