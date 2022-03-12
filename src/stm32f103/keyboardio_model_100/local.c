@@ -95,6 +95,11 @@ static void i2c_write(uint32_t i2c, int addr, uint8_t *data, size_t n)
         timeout = I2C_TIMEOUT;
         while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)) && timeout--);
     }
+    // In libopencm3 i2c_send_stop is in i2c_transfer7. We lifted it here 
+    // so we don't need all of i2c_transfer7, since we never *read* from i2c in the
+    // bootloader
+    i2c_send_stop(i2c);
+
 }
 
 
