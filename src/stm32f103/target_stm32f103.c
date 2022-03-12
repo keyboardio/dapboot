@@ -268,6 +268,6 @@ bool target_flash_program_array(uint16_t* dest, const uint16_t* data, size_t hal
         data++;
         half_word_count--;
     }
-
+    i2c_led_update_status(verified);
     return verified;
 }
