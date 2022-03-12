@@ -26,78 +26,37 @@
 #define USE_HSI 1
 #define CLOCK_MHZ 48
 #define CLOCK_HZ (CLOCK_MHZ * 1000000)
-#ifndef APP_BASE_ADDRESS
 #define APP_BASE_ADDRESS (0x08000000 + BOOTLOADER_OFFSET)
-#endif
-#ifndef FLASH_SIZE_OVERRIDE
 #define FLASH_SIZE_OVERRIDE 0x100000
-#endif
-#ifndef FLASH_PAGE_SIZE
 #define FLASH_PAGE_SIZE  2048
-#endif
-#ifndef DFU_UPLOAD_AVAILABLE
 #define DFU_UPLOAD_AVAILABLE 1
-#endif
-#ifndef DFU_DOWNLOAD_AVAILABLE
 #define DFU_DOWNLOAD_AVAILABLE 1
-#endif
 
 #define HAVE_LED 0
 
 #define LED_PROG_KEY 3 // The LED in the top left corner
 
-#ifndef HAVE_BUTTON
 #define HAVE_BUTTON 1
-#endif
-#ifndef BUTTON_ACTIVE_HIGH
 #define BUTTON_ACTIVE_HIGH 1
-#endif
-#ifndef BUTTON_GPIO_PORT
 #define BUTTON_GPIO_PORT GPIOB
-#endif
-#ifndef BUTTON_GPIO_PIN
 #define BUTTON_GPIO_PIN GPIO14
-#endif
-#ifndef BUTTON_USES_PULL
 #define BUTTON_USES_PULL 1
 
 #define BUTTON_OUTPUT_GPIO_PORT GPIOB
 #define BUTTON_OUTPUT_GPIO_PIN GPIO15
 
-
-#endif
-#ifndef BUTTON_SAMPLE_DELAY_CYCLES
 #define BUTTON_SAMPLE_DELAY_CYCLES 1440000
-#endif
 
-
-
-
-#ifndef HAVE_USB_PULLUP_CONTROL
 #define HAVE_USB_PULLUP_CONTROL 1
-#endif
 
-#ifndef USES_GPIOA
 #define USES_GPIOA 1
-#endif
-#ifndef USES_GPIOB
 #define USES_GPIOB 1
-#endif
-
 #define USES_GPIOC 0
 
-#ifndef USB_PULLUP_GPIO_PORT
 #define USB_PULLUP_GPIO_PORT GPIOA
-#endif
-#ifndef USB_PULLUP_GPIO_PIN
 #define USB_PULLUP_GPIO_PIN  GPIO8
-#endif
-#ifndef USB_PULLUP_ACTIVE_HIGH
 #define USB_PULLUP_ACTIVE_HIGH 1
-#endif
-#ifndef USB_PULLUP_OPEN_DRAIN
 #define USB_PULLUP_OPEN_DRAIN 0
-#endif
 
 #define USB_VID 0x3496
 #define USB_PID 0x0005
