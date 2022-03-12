@@ -95,8 +95,7 @@
 #define USES_GPIOB 1
 #endif
 
-
-#define USES_GPIOC 1
+#define USES_GPIOC 0
 
 #ifndef USB_PULLUP_GPIO_PORT
 #define USB_PULLUP_GPIO_PORT GPIOA
