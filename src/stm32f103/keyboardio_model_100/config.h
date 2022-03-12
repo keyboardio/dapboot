@@ -40,19 +40,6 @@
 #define DFU_DOWNLOAD_AVAILABLE 1
 #endif
 
-#ifndef HAVE_LED
-#define HAVE_LED 1
-#endif
-#ifndef LED_OPEN_DRAIN
-#define LED_OPEN_DRAIN 1
-#endif
-#ifndef LED_GPIO_PORT
-#define LED_GPIO_PORT GPIOB
-#endif
-#ifndef LED_GPIO_PIN
-#define LED_GPIO_PIN GPIO0
-#endif
-
 #define HAVE_LED 0
 
 #define LED_PROG_KEY 3 // The LED in the top left corner
