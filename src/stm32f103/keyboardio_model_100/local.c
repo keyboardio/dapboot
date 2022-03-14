@@ -37,7 +37,14 @@ void target_pre_main(void) {
 bool target_get_force_bootloader(void) {
     bool force = false;
 
+    /* TODO  This code doesn't seem to behave correctly */
+    // If we're here because of a reset-button reset, then stay in the bootloader 
+    /*
+    const uint32_t mask = (RCC_CSR_LPWRRSTF | RCC_CSR_WWDGRSTF | RCC_CSR_IWDGRSTF |
+                           RCC_CSR_SFTRSTF | RCC_CSR_PORRSTF);
 
+    bool force = (RCC_CSR & mask) == RCC_CSR_PINRSTF;
+    */
 
     /* Wait some time in case the button has some debounce capacitor */
     for (int i = 0; i < BUTTON_SAMPLE_DELAY_CYCLES; i++) {
