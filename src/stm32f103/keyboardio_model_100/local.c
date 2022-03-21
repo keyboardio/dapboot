@@ -157,7 +157,7 @@ void i2c_led_update_status(bool status) {
     } else {
         i2c_led_on(current_status_led, 0xFF, 0x00, 0x00);
     }
-    if (current_status_led++ > 3) {
+    if (++current_status_led > 3) {
         current_status_led = 0;
     }
 }
