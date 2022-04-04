@@ -29,6 +29,7 @@
 #include "target.h"
 #include "config.h"
 #include "backup.h"
+#include "i2c.h"
 
 #ifndef USES_GPIOA
 #if (HAVE_USB_PULLUP_CONTROL == 0)
