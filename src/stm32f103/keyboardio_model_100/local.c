@@ -60,8 +60,6 @@ bool target_get_force_bootloader(void) {
 
 void target_post_setup(void) {
 
-    // Setup our i2c controller
-    i2c_setup();
 
     // Enable the 5V power network
     gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, GPIO_CNF_OUTPUT_OPENDRAIN, GPIO9);
@@ -74,6 +72,8 @@ void target_post_setup(void) {
     //
     // We punch it up to 250ms of delay just to be safe.
     delay_ms(250, 48000000);
+    // Setup our i2c controller
+    i2c_setup();
 
     // Set the PROG led to 'red'
     i2c_led_update_status(false);
