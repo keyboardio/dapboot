@@ -22,6 +22,10 @@ void target_pre_main(void) {
     /* Turn off the LEDS */
     // i2c_led_all_off();
 
+    // Fully reset our button gpios so as not to mess with running apps
+    gpio_set_mode(BUTTON_GPIO_PORT, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, BUTTON_GPIO_PIN);
+    gpio_set_mode(BUTTON_OUTPUT_GPIO_PORT, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, BUTTON_OUTPUT_GPIO_PIN);
+
     // Before jumping into user code, try to reset our clock config back to a standard boot config
     RCC_CR   |= 0x00000001;
     RCC_CFGR &= 0xF8FF0000;
