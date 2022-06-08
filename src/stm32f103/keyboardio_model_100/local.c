@@ -74,8 +74,8 @@ void target_post_setup(void) {
     // 76ms but does not work at 75ms. That jibes with the 65ms delay on boot we
     // have the ATTiny88s fused for.
     //
-    // We punch it up to 250ms of delay just to be safe.
-    delay_ms(250, 48000000);
+    // We punch it up to 125ms of delay just to be safe.
+    delay_ms(125, 48000000);
     // Setup our i2c controller
     i2c_setup();
 
