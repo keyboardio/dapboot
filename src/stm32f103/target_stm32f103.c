@@ -29,7 +29,9 @@
 #include "target.h"
 #include "config.h"
 #include "backup.h"
+#ifdef USES_I2C_LEDS
 #include "i2c.h"
+#endif
 
 #ifndef USES_GPIOA
 #if (HAVE_USB_PULLUP_CONTROL == 0)
@@ -269,6 +271,8 @@ bool target_flash_program_array(uint16_t* dest, const uint16_t* data, size_t hal
         data++;
         half_word_count--;
     }
+#ifdef USES_I2C_LEDS
     i2c_led_update_status(verified);
+#endif
     return verified;
 }

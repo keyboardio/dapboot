@@ -61,6 +61,8 @@
 #define USB_VID 0x3496
 #define USB_PID 0x0007
 
+#define USES_I2C_LEDS
+
 #define INNER_STRINGIFY(str) #str
 #define STRINGIFY(str) INNER_STRINGIFY(str)
 
