@@ -29,26 +29,8 @@ export V
 
 BUILD_DIR      ?= ./build
 
-all: dapboot-bluepill.bin \
-     dapboot-maplemini.bin \
-     dapboot-stlink.bin \
-     dapboot-olimexstm32h103.bin \
-     dapboot-bluepillplusstm32.bin \
-     dapboot-bttskrminie3v2.bin \
-     dapboot-bttskrminie3v2-usbmod.bin \
-     dapboot-bluepill-high.bin \
-     dapboot-maplemini-high.bin \
-     dapboot-stlink-high.bin \
-     dapboot-olimexstm32h103-high.bin \
-     dapboot-bluepillplusstm32-high.bin \
-     dapboot-bluepill-high-128.bin \
-     dapboot-maplemini-high-128.bin \
-     dapboot-stlink-high-128.bin \
-     dapboot-olimexstm32h103-high-128.bin \
-     dapboot-bluepillplusstm32-high-128.bin \
-     dapboot-bttskrminie3v2-high-256.bin \
-     dapboot-bttskrminie3v2-usbmod-high-256.bin
-
+all: dapboot-keyboardio-model-100.bin \
+     dapboot-keyboardio-scrub.bin
 clean:
 	$(Q)$(RM) $(BUILD_DIR)/*.bin
 	$(Q)$(MAKE) -C src/ clean
@@ -171,3 +153,17 @@ dapboot-bttskrminie3v2-usbmod-high-256.bin: | $(BUILD_DIR)
 	$(Q)$(MAKE) TARGET=BTTSKRMINIE3V2_USBMOD_HIGH_256 -C src/ clean
 	$(Q)$(MAKE) TARGET=BTTSKRMINIE3V2_USBMOD_HIGH_256 -C src/
 	$(Q)cp src/dapboot.bin $(BUILD_DIR)/$(@)
+
+
+dapboot-keyboardio-model-100.bin: | $(BUILD_DIR)
+	@printf "  BUILD $(@)\n"
+	$(Q)$(MAKE) TARGET=KEYBOARDIO_MODEL_100 -C src/ clean
+	$(Q)$(MAKE) TARGET=KEYBOARDIO_MODEL_100 -C src/
+	$(Q)cp src/dapboot.bin $(BUILD_DIR)/$(@)
+
+dapboot-keyboardio-scrub.bin: | $(BUILD_DIR)
+	@printf "  BUILD $(@)\n"
+	$(Q)$(MAKE) TARGET=KEYBOARDIO_SCRUB -C src/ clean
+	$(Q)$(MAKE) TARGET=KEYBOARDIO_SCRUB -C src/
+	$(Q)cp src/dapboot.bin $(BUILD_DIR)/$(@)
+
