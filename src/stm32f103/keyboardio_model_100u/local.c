@@ -59,19 +59,3 @@ bool target_get_force_bootloader(void) {
     return force;
 }
 
-void target_post_setup(void) {
-
-
-    // Enable the 5V power network
-    gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, GPIO_CNF_OUTPUT_OPENDRAIN, GPIO9);
-    gpio_clear(GPIOB, GPIO9);
-
-    // Delay for a moment to let the ATTiny88 boot up.
-    // With the model 100's initial factory firmware, this works consistently at
-    // 76ms but does not work at 75ms. That jibes with the 65ms delay on boot we
-    // have the ATTiny88s fused for.
-    //
-    // We punch it up to 125ms of delay just to be safe.
-    delay_ms(125, 48000000);
-}
-
